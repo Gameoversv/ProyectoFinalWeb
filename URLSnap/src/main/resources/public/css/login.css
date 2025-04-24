@@ -1,0 +1,251 @@
+:root {
+    --color-beige: rgba(248, 250, 229, 1);
+    --color-gold: rgba(177, 148, 112, 1);
+    --color-dark: rgba(30, 30, 30, 1);
+    --color-teal: rgba(67, 118, 108, 1);
+}
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--color-gold);
+}
+
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Caja de login */
+.login-box {
+    background: var(--color-beige);
+    padding: 3rem;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrado horizontal */
+}
+
+/* Título URLSnap */
+.text-5 {
+    color: var(--color-gold);
+    font-family: "Zen Tokyo Zoo", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4rem;
+    text-align: center;
+    margin: 0 0 2rem 0; /* Posicionamiento arriba */
+    width: 100%;
+}
+
+/* Formulario */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid var(--color-gold); /* Borde dorado */
+    border-radius: 12px;
+    background-color: var(--color-beige); /* Fondo beige */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: rgba(177, 148, 112, 0.6); /* Color placeholder */
+}
+
+/* Botón de login */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-teal);
+    color: var(--color-beige);
+    border: none;
+    border-radius: 14px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.login-button:hover {
+    background-color: rgba(50, 90, 82, 1);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 2rem;
+    }
+
+    .text-5 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1rem;
+    }
+
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .text-5 {
+        font-size: 3rem;
+    }
+
+    .login-button {
+        font-size: 1.5rem;
+    }
+}
+
+.forms-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Altura fija para contener ambos formularios */
+    overflow: hidden;
+}
+
+.form {
+    position: absolute;
+    width: 100%;
+    padding: 1rem 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    left: 0;
+}
+
+.login-form {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.register-form {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.forms-wrapper.active .login-form {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.forms-wrapper.active .register-form {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toggle-form {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--color-gold);
+}
+
+.toggle-form a {
+    color: var(--color-teal);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.toggle-form a:hover {
+    color: rgba(50, 90, 82, 1);
+}
+
+.login-box {
+    /* Mantener propiedades existentes */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 400px; /* Altura mínima inicial */
+    overflow: hidden;
+}
+
+.forms-wrapper {
+    position: relative;
+    width: 100%;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form {
+    position: absolute;
+    width: 100%;
+    padding: 1rem 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaciado entre elementos del formulario */
+}
+
+/* Aumentar espaciado específico en el formulario de registro */
+.register-form .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Ajustar posiciones y transiciones */
+.login-form {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.register-form {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.forms-wrapper.active .login-form {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.forms-wrapper.active .register-form {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toggle-form {
+    margin-top: 2rem; /* Más espacio sobre el enlace */
+}
+
+/* Nuevos estilos para expansión dinámica */
+.login-box-expanded {
+    min-height: 500px; /* Altura para el formulario de registro */
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        min-height: 420px;
+    }
+
+    .login-box-expanded {
+        min-height: 560px;
+    }
+}

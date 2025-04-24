@@ -1,0 +1,352 @@
+/*index.css*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-beige: rgba(248, 250, 229, 1);
+    --color-gold: rgba(177, 148, 112, 1);
+    --color-dark: rgba(30, 30, 30, 1);
+    --color-teal: rgba(67, 118, 108, 1);
+}
+
+/* Estilos base heredados */
+body {
+    background-color: var(--color-beige);
+    font-family: 'Zen Loop', cursive;
+    color: var(--color-dark);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: "Zen Tokyo Zoo", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5rem;
+    color: var(--color-beige);
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--color-beige);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-teal);
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.url-form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.form-title {
+    text-align: center;
+    color: var(--color-teal);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.url-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.form-group{
+    width: 100%;
+}
+
+.url-input {
+    width: 100%;
+    padding: 1rem;
+    max-width: 100%;
+    border: 2px solid var(--color-gold);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+}
+
+.url-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-teal);
+}
+
+.submit-button {
+    background-color: var(--color-teal);
+    color: var(--color-beige);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: rgba(50, 90, 82, 1);
+    transform: translateY(-2px);
+}
+
+.urls-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    color: var(--color-teal);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.url-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.original-url {
+    color: var(--color-dark);
+    flex: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.short-url-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.short-url {
+    color: var(--color-teal);
+    font-weight: bold;
+}
+
+.copy-button {
+    background-color: var(--color-gold);
+    color: var(--color-beige);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: rgba(150, 120, 90, 1);
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .url-item {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .short-url-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .url-form-container,
+    .urls-section {
+        padding: 1rem;
+    }
+}
+
+.hamburger-btn {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 1000;
+    background: var(--color-gold);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 8px;
+    padding: 0.8rem;
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-beige);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: var(--color-gold);
+    padding: 1.5rem;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-menu.active {
+    left: 0;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu-link {
+    color: var(--color-beige);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+    background-color: var(--color-teal);
+    padding-left: 1rem;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+/* Ajuste para el contenido principal */
+.main-content {
+    margin-top: 4rem;
+}
+
+@media (max-width: 480px) {
+    .sidebar-menu {
+        width: 100%;
+        left: -100%;
+    }
+
+    .sidebar-menu.active {
+        left: -100%;
+        box-shadow: none;
+    }
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.auth-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logout-btn, .login-btn {
+    background: var(--color-teal);
+    color: var(--color-beige);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover, .login-btn:hover {
+    background: rgba(50, 90, 82, 1);
+}
+
+.username {
+    color: var(--color-beige);
+    font-weight: bold;
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.top-nav .auth-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

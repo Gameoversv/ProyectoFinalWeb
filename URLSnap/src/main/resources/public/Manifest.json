@@ -1,0 +1,8 @@
+{
+  "name": "URLSnap",
+  "short_name": "URLSnap",
+  "start_url": "/mis-urlsnaps",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#43766C"
+}

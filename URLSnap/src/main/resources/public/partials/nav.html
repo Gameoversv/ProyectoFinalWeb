@@ -1,0 +1,32 @@
+<!-- nav.html -->
+<button class="hamburger-btn">
+  <div class="hamburger-line"></div>
+  <div class="hamburger-line"></div>
+  <div class="hamburger-line"></div>
+</button>
+
+<div class="sidebar-overlay"></div>
+
+<nav class="sidebar-menu">
+  <h1 class="logo">URLSnap</h1>
+
+  <div class="menu-items">
+    <!-- Visible para todos -->
+    <a href="/index" class="menu-link">Inicio</a>
+    <a href="/mis-urlsnaps" class="menu-link">Mis URLSnaps</a>
+    <a href="/estadisticas" class="menu-link">Estadísticas</a>
+    <!-- Solo admin (se controlará con JS) -->
+    <a href="/usuarios" class="menu-link admin-only">Gestión Usuarios</a>
+    <a href="/mis-urlsnapsadmin" class="menu-link admin-only">Gestión URL's</a>
+
+  </div>
+
+  <!-- Sesión -->
+  <div class="auth-status">
+    <span class="username"></span>
+    <form>
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+    <a href="/login" class="login-btn">Login</a>
+  </div>
+</nav>

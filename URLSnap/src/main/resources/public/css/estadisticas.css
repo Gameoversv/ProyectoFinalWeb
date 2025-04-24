@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-beige: rgba(248, 250, 229, 1);
+    --color-gold: rgba(177, 148, 112, 1);
+    --color-dark: rgba(30, 30, 30, 1);
+    --color-teal: rgba(67, 118, 108, 1);
+    --color-hover-teal: rgba(50, 90, 82, 1);
+}
+
+body {
+    background-color: var(--color-beige);
+    font-family: 'Zen Loop', cursive;
+    color: var(--color-dark);
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 6rem auto 2rem auto;
+    padding: 0 1rem;
+}
+
+.estadisticas-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--color-teal);
+    margin-bottom: 2rem;
+}
+
+.chart-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#url-select {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--color-gold);
+    border-radius: 12px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='7'><path fill='%2334766C' d='M6 7 0 0h12z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px 7px;
+}
+
+#url-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-teal);
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+.chart-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.refresh-button,
+.qr-button,
+.download-button {
+    background-color: var(--color-teal);
+    color: var(--color-beige);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover,
+.qr-button:hover,
+.download-button:hover {
+    background-color: var(--color-hover-teal);
+}
+
+.qr-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+#qr-canvas {
+    border: 2px dashed var(--color-teal);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+
+    .chart-container {
+        max-width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

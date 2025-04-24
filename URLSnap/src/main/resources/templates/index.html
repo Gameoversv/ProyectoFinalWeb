@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URLSnap - Acortador de URLs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Loop:ital@0;1&family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://cdn.microlink.io"></script> <!-- Incluir Microlink -->
+</head>
+<body th:with="usuario=${usuario}">
+<div class="top-nav">
+    <div class="auth-status">
+        <span th:if="${usuario}" class="username" th:text="${usuario.username}"></span>
+        <form th:if="${usuario}" action="/logout" method="post">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+        <a th:unless="${usuario}" href="/login" class="login-btn">Login</a>
+    </div>
+</div>
+<main class="main-content">
+    <div class="url-form-container">
+        <h2 class="form-title">Ingrese la URL que desea acortar</h2>
+        <form class="url-form">
+            <div class="form-group">
+                <input type="url" class="form-input url-input" placeholder="https://example.com/quiero-acortar-esto" required>
+            </div>
+            <div class="preview-container" id="preview-container" style="display: none;">
+                <h4>Vista previa:</h4>
+                <div id="preview" class="preview-box"></div> <!-- Contenedor para la vista previa -->
+            </div>
+            <button type="submit" class="submit-button">Acortar URL</button>
+        </form>
+    </div>
+
+    <section class="urls-section">
+        <h3 class="section-title">Mis URLs recientes</h3>
+        <div class="urls-list" id="urls-list">
+            <!-- Contenido dinámico -->
+        </div>
+    </section>
+</main>
+<script src="/js/components/nav-loader.js"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

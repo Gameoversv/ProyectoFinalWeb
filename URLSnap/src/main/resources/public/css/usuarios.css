@@ -1,0 +1,111 @@
+/* usuarios.css */
+.admin-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.users-header {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 2px solid var(--color-gold);
+    font-weight: bold;
+    color: var(--color-teal);
+}
+
+.user-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(177, 148, 112, 0.2);
+}
+
+.user-item {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.admin-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-teal);
+}
+
+.edit-btn {
+    background-color: var(--color-teal);
+    color: var(--color-beige);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 0.5rem;
+}
+
+.edit-btn:hover {
+    background-color: rgba(50, 90, 82, 1);
+}
+
+.delete-btn {
+    background-color: var(--color-gold);
+    color: var(--color-beige);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #a58365;
+}
+
+@media (max-width: 768px) {
+    .users-header,
+    .user-row {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+      "nombre"
+      "usuario"
+      "admin"
+      "opciones";
+    }
+
+    .user-item {
+        padding: 0.3rem 0;
+    }
+
+    .users-header .user-item {
+        display: none;
+    }
+
+    .user-row {
+        position: relative;
+        padding: 1rem 0;
+    }
+
+    .user-item::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--color-teal);
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .nombre::before { content: "Nombre: "; }
+    .usuario::before { content: "Usuario: "; }
+    .admin::before { content: "Es Admin: "; }
+    .opciones::before { content: "Opciones: "; }
+
+    .opciones {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+}

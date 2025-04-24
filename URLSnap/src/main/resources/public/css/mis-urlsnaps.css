@@ -1,0 +1,130 @@
+.urls-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.urls-header {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1.5fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 2px solid var(--color-gold);
+    font-weight: bold;
+    color: var(--color-teal);
+}
+
+.url-row {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1.5fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(177, 148, 112, 0.2);
+}
+
+.url-item {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.original {
+    word-break: break-all;
+}
+
+.snap {
+    color: var(--color-teal);
+    font-weight: 500;
+}
+
+/* Eliminando el espacio de la opción de eliminar */
+.opciones {
+    display: none; /* Eliminar la columna de opciones */
+}
+
+@media (max-width: 768px) {
+    .urls-header,
+    .url-row {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "original"
+            "snap"
+            "fecha";
+    }
+
+    .url-item {
+        padding: 0.3rem 0;
+    }
+
+    .urls-header .url-item {
+        display: none;
+    }
+
+    .url-row {
+        position: relative;
+        padding: 1rem 0;
+    }
+
+    .url-item::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--color-teal);
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .original::before { content: "URL Original: "; }
+    .snap::before { content: "URL Snap: "; }
+    .fecha::before { content: "Fecha: "; }
+}
+
+/* Eliminar display: none de .opciones */
+.opciones {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Ajustar grid para 4 columnas */
+.urls-header {
+    grid-template-columns: 3fr 2fr 1.5fr 1fr;
+}
+
+.url-row {
+    grid-template-columns: 3fr 2fr 1.5fr 1fr;
+}
+
+/* Botón de eliminar */
+.delete-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.delete-btn:hover {
+    background: #ff6b81;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+    .urls-header,
+    .url-row {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "original"
+            "snap"
+            "fecha"
+            "opciones";
+    }
+
+    .url-item.opciones::before {
+        content: "Opciones: ";
+    }
+}

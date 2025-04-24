@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URLSnap - Estadísticas</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/estadisticas.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+<main class="main-content">
+    <h1 class="estadisticas-title">Estadísticas de Accesos</h1>
+
+    <section class="chart-section">
+        <label for="url-select">Selecciona una URL:</label>
+        <select id="url-select">
+            <option value="" disabled selected>-- Selecciona una URL --</option>
+        </select>
+
+        <div class="estadisticas-contenido" id="estadisticas-contenido" style="display: none;">
+            <h2 class="chart-title" id="selected-url"></h2>
+
+            <p style="text-align: center; font-weight: bold; font-size: 1.1rem;" id="total-access-count"></p>
+
+            <div class="chart-container">
+                <canvas id="visitasChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="navegadoresChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="sistemasChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="referersChart"></canvas>
+            </div>
+
+            <!-- ✅ Nuevo gráfico de línea para fecha/hora de accesos -->
+            <div class="chart-container">
+                <canvas id="tiempoChart"></canvas>
+            </div>
+
+            <div class="button-container">
+                <button class="refresh-button" id="refresh-btn">🔄 Actualizar</button>
+                <button class="qr-button" id="generate-qr">📷 QR del gráfico</button>
+                <button class="download-button" id="download-btn">⬇️ Descargar gráficos</button>
+            </div>
+
+            <!-- ✅ Contenedor del QR generado -->
+            <div class="qr-container" style="text-align:center; margin-top: 20px;">
+                <div id="qrcode"></div> <!-- Contenedor para el QR -->
+            </div>
+
+            <div class="qr-link" style="text-align:center; margin-top: 20px;">
+                <a id="qr-link" href="" target="_blank">Accede al gráfico con QR</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/components/nav-loader.js"></script>
+<script src="/js/estadisticas.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package edu.pucmm.grpc;
+
+option java_multiple_files = true;
+option java_package = "edu.pucmm.grpc";
+option java_outer_classname = "UrlServiceProto";
+
+// 📊 Representa un acceso a la URL
+message Stats {
+  string accessedAt = 1;     // Formato ISO 8601 (ej. 2025-04-13T22:02:24.304+0000)
+  string ipAddress = 2;
+  string browser = 3;
+  string os = 4;
+  string referrer = 5;
+  string country = 6;
+}
+
+// 🔍 Solicitud para obtener URLs de un usuario
+message UrlRequest {
+  string username = 1;
+}
+
+// 🌐 Representa una URL con estadísticas y vista previa
+message UrlRecord {
+  string originalUrl = 1;
+  string shortUrl = 2;
+  string createdAt = 3;
+  repeated Stats stats = 4;
+  string previewBase64 = 5;
+}
+
+// 📦 Respuesta con lista de URLs
+message ListUserUrlsResponse {
+  repeated UrlRecord urls = 1;
+}
+
+// 📤 Solicitud para crear/acortar una URL
+message CreateUrlRequest {
+  string username = 1;
+  string originalUrl = 2;
+}
+
+// 📥 Respuesta con la URL creada
+message CreateUrlResponse {
+  UrlRecord url = 1;
+}
+
+// 🚀 Servicio gRPC de manejo de URLs
+service UrlService {
+  // Obtiene las URLs publicadas por un usuario
+  rpc ListUserUrls(UrlRequest) returns (ListUserUrlsResponse);
+
+  // Crea un nuevo registro de URL para un usuario
+  rpc CreateUrl(CreateUrlRequest) returns (CreateUrlResponse);
+}

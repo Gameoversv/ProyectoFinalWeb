@@ -1,0 +1,108 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.google.protobuf' version '0.9.4' // ✅ Plugin Protobuf
+}
+
+group = 'URLSnap'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 🔧 gRPC + Protobuf
+    implementation 'io.grpc:grpc-netty-shaded:1.61.0'
+    implementation 'io.grpc:grpc-protobuf:1.61.0'
+    implementation 'io.grpc:grpc-stub:1.61.0'
+    implementation 'com.google.protobuf:protobuf-java:3.25.1'
+    implementation 'com.google.protobuf:protobuf-java-util:3.25.1' // ✅ Timestamps
+
+    // 🧠 Para usar Optional con gRPC
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+    // 🌐 Javalin + Web
+    implementation("io.javalin:javalin:6.4.0")
+    implementation("io.javalin:javalin-rendering:6.4.0")
+
+    // 🔧 HTML Templates + JSON
+    implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    implementation 'org.json:json:20240303'
+
+    // 🛢️ MongoDB
+    implementation 'org.mongodb:mongodb-driver-sync:4.9.0'
+
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/proto'
+        }
+        java {
+            srcDirs = [
+                    'src/main/java',
+                    'build/generated/source/proto/main/java',
+                    'build/generated/source/proto/main/grpc'
+            ]
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+            includes = ['**/*.*'] // ✅ Asegura que todo recurso sea incluido
+        }
+    }
+}
+
+application {
+    mainClass = 'URLSnap.app.MainApp'
+}
+
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // ✅ Templates
+    from("src/main/resources/templates") {
+        include '**/*.html'
+        into "templates"
+    }
+
+    // ✅ Archivos públicos (SW, CSS, JS, manifest, etc.)
+    from("src/main/resources/public") {
+        include '**/*.html'
+        include '**/*.js'
+        include '**/*.css'
+        include '**/*.ico'
+        include '**/*.json'
+        include '**/*.*' // ✅ Garantiza que el SW no se omita
+        into "public"
+    }
+}
+
+// ✅ Configuración para generar clases y stubs gRPC
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.25.1'
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.61.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {}
+            }
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}

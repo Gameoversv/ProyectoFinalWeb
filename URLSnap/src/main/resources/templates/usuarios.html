@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URLSnap - Administrar Usuarios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Loop:ital@0;1&family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/usuarios.css">
+</head>
+<body>
+
+<!-- Menú lateral -->
+<script src="/js/components/nav-loader.js"></script>
+
+<main class="main-content">
+    <div class="admin-container">
+        <h2 class="section-title">Administración de Usuarios</h2>
+
+        <!-- Encabezados de la tabla -->
+        <div class="users-header">
+            <div class="user-item nombre">Nombre</div>
+            <div class="user-item usuario">Usuario</div>
+            <div class="user-item admin">Es Admin</div>
+            <div class="user-item opciones">Opciones</div>
+        </div>
+
+        <!-- Listado de usuarios -->
+        <div class="users-list" id="users-list">
+            <!-- JS llenará esto -->
+        </div>
+    </div>
+</main>
+
+<script>
+    let usuarioActualId = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            await obtenerUsuarioActual();
+            await cargarUsuarios();
+            setupEventDelegation();
+        } catch (e) {
+            console.error('Error al cargar la pantalla de administración:', e);
+        }
+    });
+
+    async function obtenerUsuarioActual() {
+        const res = await fetch('/api/yo');
+        if (!res.ok) throw new Error('No autenticado');
+        const data = await res.json();
+        usuarioActualId = parseInt(data.id);
+        console.log("Usuario actual ID:", usuarioActualId);
+    }
+
+    async function cargarUsuarios() {
+        const res = await fetch('/api/usuarios');
+        if (!res.ok) throw new Error('Error cargando usuarios');
+        const usuarios = await res.json();
+        actualizarListaUsuarios(usuarios);
+    }
+
+    function actualizarListaUsuarios(usuarios) {
+        const usersList = document.getElementById('users-list');
+        usersList.innerHTML = '';
+
+        usuarios.forEach(usuario => {
+            const userRow = document.createElement('div');
+            userRow.className = 'user-row';
+
+            const puedeEliminar = usuarioActualId !== null && usuario.id !== usuarioActualId;
+
+            userRow.innerHTML = `
+                <div class="user-item nombre">${usuario.nombre}</div>
+                <div class="user-item usuario">${usuario.username}</div>
+                <div class="user-item admin">
+                    <input type="checkbox" ${usuario.esAdmin ? 'checked' : ''} class="admin-checkbox" disabled>
+                </div>
+                <div class="user-item opciones">
+                    <button class="edit-btn" data-id="${usuario.id}">Editar</button>
+                    ${puedeEliminar ? `<button class="delete-btn" data-id="${usuario.id}">Eliminar</button>` : ''}
+                </div>
+            `;
+
+            usersList.appendChild(userRow);
+        });
+    }
+
+    function setupEventDelegation() {
+        document.getElementById('users-list').addEventListener('click', (e) => {
+            const target = e.target;
+
+            if (target.classList.contains('delete-btn')) {
+                eliminarUsuario(target.dataset.id);
+            }
+
+            if (target.classList.contains('edit-btn')) {
+                editarUsuario(target.dataset.id);
+            }
+        });
+    }
+
+    function editarUsuario(userId) {
+        alert(`Funcionalidad de edición pendiente para el ID ${userId}`);
+    }
+
+    async function eliminarUsuario(userId) {
+        if (!confirm('¿Estás seguro de eliminar este usuario?')) return;
+
+        try {
+            const res = await fetch(`/api/usuarios/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) throw new Error(result.error || 'Error desconocido');
+            alert(result.mensaje || 'Usuario eliminado correctamente');
+            await cargarUsuarios();
+        } catch (err) {
+            console.error(err);
+            alert('Error al eliminar usuario: ' + err.message);
+        }
+    }
+</script>
+</body>
+</html>

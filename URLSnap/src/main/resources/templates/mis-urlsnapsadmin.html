@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>URLSnap - Gestión de URLs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Loop:ital@0;1&family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/mis-urlsnapsadmin.css">
+  <style>
+    .admin-label {
+      text-align: center;
+      font-weight: bold;
+      color: #705d75;
+      margin-top: 1rem;
+    }
+    .url-item.usuario {
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<main class="main-content">
+  <div class="urls-container">
+    <h2 class="section-title">Gestión de URLs (Admin)</h2>
+
+    <div class="admin-label">🛠 Estás viendo todas las URLs registradas</div>
+
+    <!-- Encabezados -->
+    <div class="urls-header">
+      <div class="url-item original">URL Original</div>
+      <div class="url-item snap">URL Snap</div>
+      <div class="url-item fecha">Fecha</div>
+      <div class="url-item usuario">Usuario</div>
+      <div class="url-item opciones">Opciones</div>
+    </div>
+
+    <div class="urls-list" id="urls-list">
+      <!-- Contenido dinámico -->
+    </div>
+  </div>
+</main>
+
+<script src="/js/components/nav-loader.js"></script>
+<script src="/js/mis-urlsnapsadmin.js"></script>
+</body>
+</html>
