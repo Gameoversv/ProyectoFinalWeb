@@ -16,8 +16,8 @@ RUN echo "📁 Archivos en /app:" && ls -la
 # 🔐 Dar permisos de ejecución
 RUN chmod +x ./gradlew
 
-# 🛠 Fuerza generación de stubs gRPC y compila, incluyendo el .jar
-RUN ./gradlew clean generateProto compileJava processResources jar -x check -x test
+# 🛠 Generar stubs gRPC y compilar todo usando Shadow Jar
+RUN ./gradlew clean generateProto shadowJar -x check -x test
 
 # 📄 Verifica archivos generados
 RUN echo "📄 Archivos gRPC generados:" && find build/generated/source/proto
@@ -26,7 +26,7 @@ RUN echo "📄 Archivos gRPC generados:" && find build/generated/source/proto
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar app.jar
+COPY --from=builder /app/build/libs/app.jar app.jar
 
 EXPOSE 7000
 CMD ["java", "-jar", "app.jar"]

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.google.protobuf' version '0.9.4' // ✅ Plugin Protobuf
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // ✅ Shadow plugin para fat jar
 }
 
 group = 'URLSnap'
@@ -117,11 +118,13 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// ✅ Incluir clase principal en el MANIFEST
-jar {
+// ✅ ShadowJar con clase principal
+shadowJar {
+    archiveBaseName.set('app')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+
     manifest {
-        attributes(
-                'Main-Class': application.mainClass.get()
-        )
+        attributes 'Main-Class': application.mainClass.get()
     }
 }
