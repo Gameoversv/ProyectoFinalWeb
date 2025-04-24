@@ -21,7 +21,7 @@ public class MainApp {
     public static UrlDao urlDAO;
 
     // ✅ Dominio dinámico según entorno
-    public static final String BASE_URL = System.getenv().getOrDefault("BASE_URL", "http://localhost:7000");
+    public static final String BASE_URL = "https://acortadorurl.up.railway.app";
 
     public static void initDAOs() {
         MongoConfig.init();
