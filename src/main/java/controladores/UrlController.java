@@ -47,7 +47,6 @@ public class UrlController {
             nuevaUrl.setCreatedAt(new Date());
             nuevaUrl.setStats(new ArrayList<>());
 
-            // 🔍 Obtener imagen preview
             String previewBase64 = PreviewUtil.fetchPreviewImageBase64(urlOriginal);
             nuevaUrl.setPreviewImage(previewBase64);
 
@@ -69,13 +68,11 @@ public class UrlController {
         Url url = MainApp.urlDAO.getUrlByShortCode(shortCode);
 
         if (url != null) {
-            // 📡 IP normalizada
             String ip = ctx.ip();
             if ("0:0:0:0:0:0:0:1".equals(ip) || "::1".equals(ip)) {
                 ip = "127.0.0.1";
             }
 
-            // 🌍 Buscar país vía IP
             String pais = obtenerPaisDesdeIP(ip);
 
             Stats stats = new Stats(
@@ -106,7 +103,6 @@ public class UrlController {
         }
     }
 
-    // 🌐 Obtener país desde API pública
     private static String obtenerPaisDesdeIP(String ip) {
         if ("127.0.0.1".equals(ip)) return "Localhost";
 
@@ -170,8 +166,7 @@ public class UrlController {
         return anonId;
     }
 
-
     private static String generarShortUrl(String shortCode) {
-        return "http://localhost:7000/" + shortCode;
+        return MainApp.BASE_URL + "/" + shortCode;
     }
 }

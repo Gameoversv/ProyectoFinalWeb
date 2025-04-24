@@ -20,6 +20,9 @@ public class MainApp {
     public static UserDao userDAO;
     public static UrlDao urlDAO;
 
+    // ✅ Dominio dinámico según entorno
+    public static final String BASE_URL = System.getenv().getOrDefault("BASE_URL", "http://localhost:7000");
+
     public static void initDAOs() {
         MongoConfig.init();
         userDAO = new UserDao();
@@ -47,7 +50,7 @@ public class MainApp {
         imprimirTemplatesDisponibles();
         configurarRutas(app);
 
-        System.out.println("🚀 Servidor disponible en http://localhost:7000/");
+        System.out.println("🚀 Servidor disponible en " + BASE_URL);
     }
 
     private static Javalin iniciarJavalin(TemplateEngine templateEngine) {
@@ -110,7 +113,6 @@ public class MainApp {
                     ctx.path().equals("/api/mis-urlsnaps") ||
                     ctx.path().startsWith("/api/yo");
 
-            // ⬇️ Si es ruta pública y no hay token, salir
             if (rutaPublica && token == null) return;
 
             if (token == null || !JwtUtil.validarToken(token)) {
@@ -132,8 +134,6 @@ public class MainApp {
             ctx.attribute("esAdmin", esAdmin);
         });
     }
-
-
 
     private static void configurarRutasAutenticacion(Javalin app) {
         app.get("/index", controladores.AuthControlador::mostrarIndex);
@@ -183,6 +183,8 @@ public class MainApp {
 
         app.get("/api/todas-las-urls", controladores.ApiControlador::obtenerTodasLasUrls);
         app.get("/api/usuarios", controladores.ApiControlador::obtenerUsuarios);
+        app.get("/api/usuarios/{id}", controladores.ApiControlador::obtenerUsuarioPorId);
+        app.put("/api/usuarios/{id}", controladores.ApiControlador::actualizarUsuario);
         app.delete("/api/usuarios/{id}", controladores.ApiControlador::eliminarUsuario);
     }
 }

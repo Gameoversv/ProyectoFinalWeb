@@ -52,4 +52,23 @@ public class UserDao {
         DeleteResult result = usersCollection.deleteOne(Filters.eq("username", username));
         return result.getDeletedCount() > 0;
     }
+    // Obtener usuario por ID como String (conversión segura)
+    public User getById(String id) {
+        try {
+            return getUserById(new ObjectId(id));
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    // Actualizar usuario completo por su ObjectId
+    public boolean update(User user) {
+        UpdateResult result = usersCollection.replaceOne(
+                Filters.eq("_id", user.getId()),
+                user
+        );
+        return result.getModifiedCount() > 0;
+    }
+
+
 }

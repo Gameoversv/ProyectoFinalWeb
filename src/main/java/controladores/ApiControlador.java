@@ -167,4 +167,40 @@ public class ApiControlador {
 
         ctx.json(url.getStats());
     }
+    public static void obtenerUsuarioPorId(Context ctx) {
+        String id = ctx.pathParam("id");
+        User user = MainApp.userDAO.getById(id);
+        if (user == null) {
+            ctx.status(404).json(Map.of("error", "Usuario no encontrado"));
+            return;
+        }
+        ctx.json(Map.of(
+                "id", user.getId().toString(),
+                "nombre", user.getNombre(),
+                "username", user.getUsername(),
+                "esAdmin", user.isAdmin()
+        ));
+    }
+
+    public static void actualizarUsuario(Context ctx) {
+        String id = ctx.pathParam("id");
+        User existente = MainApp.userDAO.getById(id);
+        if (existente == null) {
+            ctx.status(404).json(Map.of("error", "Usuario no encontrado"));
+            return;
+        }
+
+        Map<String, Object> body = ctx.bodyAsClass(Map.class);
+        String nombre = (String) body.get("nombre");
+        String username = (String) body.get("username");
+        boolean esAdmin = (boolean) body.get("admin");
+
+        existente.setNombre(nombre);
+        existente.setUsername(username);
+        existente.setAdmin(esAdmin);
+
+        MainApp.userDAO.update(existente);
+        ctx.json(Map.of("mensaje", "Usuario actualizado correctamente"));
+    }
+
 }
