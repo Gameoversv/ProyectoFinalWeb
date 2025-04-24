@@ -35,7 +35,7 @@ dependencies {
     // 🛢️ MongoDB
     implementation 'org.mongodb:mongodb-driver-sync:4.9.0'
 
-
+    // 🔐 JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
@@ -105,4 +105,9 @@ protobuf {
             }
         }
     }
+}
+
+// ✅ Fuerza codificación UTF-8 para evitar errores de caracteres especiales
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
