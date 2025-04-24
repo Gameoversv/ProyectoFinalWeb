@@ -107,6 +107,11 @@ protobuf {
     }
 }
 
+// ✅ Fuerza que compileJava espere a generateProto (Gradle 8+)
+tasks.named('compileJava') {
+    dependsOn 'generateProto'
+}
+
 // ✅ Fuerza codificación UTF-8 para evitar errores de caracteres especiales
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
