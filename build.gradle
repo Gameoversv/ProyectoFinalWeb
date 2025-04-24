@@ -80,7 +80,7 @@ tasks.processResources {
         include '**/*.css'
         include '**/*.ico'
         include '**/*.json'
-        include '**/*.*' // ✅ Garantiza que el SW no se omita
+        include '**/*.*'
         into "public"
     }
 }
@@ -112,7 +112,16 @@ tasks.named('compileJava') {
     dependsOn 'generateProto'
 }
 
-// ✅ Fuerza codificación UTF-8 para evitar errores de caracteres especiales
+// ✅ Codificación UTF-8
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+// ✅ Incluir clase principal en el MANIFEST
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass.get()
+        )
+    }
 }
